@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-
+from django.core.validators import MinValueValidator , MaxValueValidator
 
 
 class Category(models.Model):
@@ -31,7 +31,9 @@ class Product(models.Model):
     price = models.DecimalField(default=0 , decimal_places=2 , max_digits=15)
     category = models.ForeignKey(Category , on_delete=models.CASCADE , default = 1)
     picture = models.ImageField(upload_to='upload/product')
-    
+    star = models.IntegerField(default = 0 , validators= [MaxValueValidator(5) ,MinValueValidator(0)])
+    sale_price = models.DecimalField(default=0 , decimal_places=2 , max_digits=15)
+    is_sale = models.BooleanField(default = False)
     size = models.CharField(max_length=10 , choices= SIZES , default= '--')
     
     def __str__(self):
