@@ -1,0 +1,34 @@
+{%extends 'shop/base.html'%}
+{% block content %}
+
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">login</h1>
+                <p class="lead fw-normal text-white-50 mb-0">enter to user region</p>
+            </div>
+        </div>
+    </header>
+
+
+    <div class = 'row'>
+        <center>
+            <div class = col-7>
+                <p align = 'justify'>
+                    <form method = "POST" action = "{% url 'login' %}">
+                        {% csrf_token %} <!-- for security-->
+                        <div class="mb-3">
+                            <input type="text" class="form-control" name = "username" placeholder="Enter Username please!!">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" class="form-control" name = "password" placeholder="Enter Password please!!">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                </p>
+            </div>
+        </center>
+    </div>
+
+{%endblock  %}
