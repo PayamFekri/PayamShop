@@ -15,3 +15,5 @@ urlpatterns = [
 # python manage.py migrate -> create admin pannel
 
 # python manage.py createsuperuser -> create admin user
+
+# http://127.0.0.1:8000/admin/
