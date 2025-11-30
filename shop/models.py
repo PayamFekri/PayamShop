@@ -1,5 +1,8 @@
 from django.db import models
-import datetime
+from django.utils import timezone
+
+
+
 class Category(models.Model):
     name = models.CharField(max_length= 20)
     
@@ -15,12 +18,21 @@ class Customer(models.Model):
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
 
+SIZES = (
+    ('m', 'Medium'),
+    ('l', 'Large'),
+    ('xl', 'Extra Large'),
+    ('--', 'No Size'),
+)
+
 class Product(models.Model):
     name = models.CharField(max_length=40)
     description = models.CharField(max_length=500 , default='' , blank=True , null=True)
     price = models.DecimalField(default=0 , decimal_places=2 , max_digits=15)
-    category = models.ForeignKey(Category , on_delete=models.CASCADE)
+    category = models.ForeignKey(Category , on_delete=models.CASCADE , default = 1)
     picture = models.ImageField(upload_to='upload/product')
+    
+    size = models.CharField(max_length=10 , choices= SIZES , default= '--')
     
     def __str__(self):
         return self.name
@@ -31,9 +43,13 @@ class Order(models.Model):
     quantity = models.IntegerField(default=1)
     address = models.CharField(default='' , blank= True)
     phone = models.CharField(max_length=20 , blank= True)
-    date = models.DateField(default=datetime.datetime.today())
+    date = models.DateField(default=timezone.now)
     status = models.BooleanField(default=False)
-    
+
+
+#هر موقع بخوای مدل هارو به دیتا بیس اضافه کنی
+# یا تغییراتی در اونا به وجود بیاری
+# باید دستورات زیر رو اجرا کنی
 #command to add database: 
     # python manage.py makemigrations ->
         # python manage.py migrate -> 
