@@ -35,6 +35,7 @@ class Product(models.Model):
     sale_price = models.DecimalField(default=0 , decimal_places=2 , max_digits=15)
     is_sale = models.BooleanField(default = False)
     size = models.CharField(max_length=10 , choices= SIZES , default= '--')
+    is_available = models.BooleanField(default = True)
     
     def __str__(self):
         return self.name
