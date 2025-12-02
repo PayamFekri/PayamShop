@@ -1,12 +1,8 @@
-from django.shortcuts import render , redirect 
-from .models import Product
+from django.shortcuts import render , redirect , get_object_or_404
+from .models import Product , Category
 from django.contrib.auth import authenticate , login , logout
 from django.contrib import messages
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-from django import forms
 from . forms import SignUpForm
-
 from django.views.decorators.csrf import csrf_protect  # اضافه کنید
 
 @csrf_protect
@@ -61,3 +57,18 @@ def signup_user(request):
     else:
         form = SignUpForm()
     return render(request, 'shop/signup.html', {'form': form})
+
+def product(request , pk):
+    product = Product.objects.get(id = pk)
+    return render(request , 'shop/product.html' , {'product' : product})
+
+
+def category(request , cat):
+    cat = cat.replace('-', ' ')
+    try:
+        category = Category.objects.get(name = cat)
+        products= Product.objects.filter(category = category)
+        return render(request , 'shop/category.html' , {'ProductsINview' : products , "category" : category})
+    except:
+        messages.success(request , ("category isn't exist"))
+        return redirect("helloworld")

@@ -48,7 +48,9 @@ class Order(models.Model):
     phone = models.CharField(max_length=20 , blank= True)
     date = models.DateField(default=timezone.now)
     status = models.BooleanField(default=False)
-
+    
+    def __str__(self):
+        return self.product
 
 #هر موقع بخوای مدل هارو به دیتا بیس اضافه کنی
 # یا تغییراتی در اونا به وجود بیاری
