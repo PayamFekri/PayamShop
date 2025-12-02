@@ -20,6 +20,7 @@
                         {% csrf_token %} <!-- for security-->
                             {{form.as_p}}
                             <br><br>
+                            {{ form.errors }}
                         <button type="submit" class="btn btn-primary">Sign up</button>
                     </form>
                 </p>

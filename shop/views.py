@@ -27,7 +27,7 @@ def login_user(request):
             messages.success(request , "Logged in successfully.")
             return redirect("helloworld")
         else:
-            messages.success(request , "Logged in successfully.")
+            messages.success(request , "Logged in UNsuccessfully!")
             return redirect("login")
     else :
         return render(request , 'shop/login.html')
@@ -38,19 +38,26 @@ def logout_user(request):
     return redirect("helloworld")
 
 def signup_user(request):
-    form = SignUpForm()
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data['username']
-            password1 = form.cleaned_data['password1']
-            user = authenticate(request , username=username , password = password1)
-            login(request , user)
-            messages.success(request , "sign up is successfully.")
-            return redirect("helloworld")
+            user = form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            if user is not None:
+                login(request, user)
+                messages.success(request, "Sign up is successfully.")
+                return redirect("helloworld")
+            else:
+                messages.error(request, "Authentication failed after signup.")
+                return redirect("signup")
         else:
-            messages.success(request , "sign up is not! successfully!!.")
-            return redirect("signup")
+            # نمایش خطاهای فرم
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
+            return render(request, 'shop/signup.html', {'form': form})
     else:
-        return render(request , 'shop/signup.html' , {'form' : form})
+        form = SignUpForm()
+    return render(request, 'shop/signup.html', {'form': form})
