@@ -50,6 +50,7 @@
                 console.log("Response:", json);
                 alert("Added: " + json.product_name);
                 document.getElementById('cart_quantity').textContent = json.qty
+                location.reload();
             },
             error: function(xhr, errmsg, err){
                 console.log("Error:", errmsg);
