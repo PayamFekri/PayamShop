@@ -43,9 +43,10 @@
                         <option value="3">3</option>
                     </select>
 
-                    
+
                     <br>
                     <button type = 'button' data-index = {{product.id}} class= 'btn btn-primary update-cart'>Edit</button>
+                    <button type = 'button' data-index = {{product.id}} class= 'btn btn-danger delete-product'>Delete item</button>
                     <a href = "{%url 'helloworld'%}" class = 'btn btn-secondary'>back to Home</a>
                 </div>
             </div>
@@ -67,6 +68,29 @@
             data: {
                 product_id: productid,
                 product_qty: $('#select'+productid+' option:selected').val(),
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                action: 'post'
+            },
+            success: function(json){
+                console.log("Updated:", json);
+                location.reload(); 
+            },
+            error: function(xhr, errmsg, err){
+                console.log("Error:", errmsg);
+            }
+        });
+    });
+
+
+
+    $(document).on('click', '.delete-product', function(e){
+        e.preventDefault();
+
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'cart_delete' %}",
+            data: {
+                product_id: $(this).data('index'),
                 csrfmiddlewaretoken: '{{ csrf_token }}',
                 action: 'post'
             },

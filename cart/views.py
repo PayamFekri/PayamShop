@@ -25,7 +25,16 @@ def cart_add(request):
         return JsonResponse({'product_name': product.name , 'qty': cart_quantity})
 
 def cart_delete(request):
-    pass
+    cart = Cart(request)
+    
+    if request.POST.get('action') == 'post':
+        product_id = int(request.POST.get('product_id'))
+
+        if not product_id:
+            return JsonResponse({'error': 'No product id provided'}, status=400)
+        cart.delete(product = product_id)
+        return JsonResponse({'product': product_id})
+
 
 def cart_update(request):
     cart = Cart(request)
