@@ -1,0 +1,46 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% load humanize %}
+{%block content%}
+
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Your shopping cart</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Everything you want to buy is here</p>
+        </div>
+    </div>
+</header>
+<br>
+
+{%if cart_products%}
+    {% for product in cart_products %}
+    <div class = "container">
+        <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-4">
+            <img src="{{product.picture.url}}" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{product.description}}</p>
+                    {%if product.is_sale%}
+                        <p class="card-text">💵 Price : <strike>{{product.price | intcomma}}</strike>&nbsp;&nbsp;&nbsp;-> {{product.sale_price| intcomma}}</p>
+
+                    {%else%}
+                        <p class="card-text">💵 Price : {{product.price | intcomma}}</p>
+                    {%endif%}
+                    <br><br><br><br>
+                    <a href = "{%url 'helloworld'%}" class = 'btn btn-secondary'>back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{%else%}
+    <center><h3 class = 'container'>Your shopping cart is empty 😕</h3></center>
+{%endif%}
+<br><br><br><br><br>
+{%endblock  %}

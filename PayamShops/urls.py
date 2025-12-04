@@ -5,8 +5,13 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('' , include('shop.urls'))
-]+static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT)
+    path('' , include('shop.urls')),
+    path('cart/' , include('cart.urls'))
+    ]+static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT)
+
+#django-admin startproject PayamShops
+
+#python manage.py startapp shop
 
 # python manage.py runserver
 

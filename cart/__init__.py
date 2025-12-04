@@ -1,0 +1,1 @@
+#how to create application cart : python manage.py startapp cart

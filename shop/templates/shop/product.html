@@ -20,8 +20,10 @@
                 {%else%}
                     <p class="card-text">💵 Price : {{product.price | intcomma}}</p>
                 {%endif%}
+                <br> <br>
+                <button class= 'btn btn-secondary' type = 'button' value = '{{ product.id}}'  id = 'add-cart'> add to cart </button>
 
-                <a href = "{%url 'helloworld'%}">back to Home</a>
+                <a href = "{%url 'helloworld'%}" class = 'btn btn-secondary'>back to Home</a>
             </div>
         </div>
     </div>
@@ -29,4 +31,27 @@
 <br><br><br><br><br>
 <br><br><br><br><br>
 <br><br><br><br><br>
+<script>
+    $(document).on('click', '#add-cart', function(e){
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'cart_add' %}",
+            data: {
+                product_id: $('#add-cart').val(),   // id درست
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                action: 'post'
+            },
+            success: function(json){
+                console.log("Response:", json);
+                alert("Added: " + json.product_name);
+                document.getElementById('cart_quantity').textContent = json.qty
+            },
+            error: function(xhr, errmsg, err){
+                console.log("Error:", errmsg);
+            }
+        });
+    });
+</script>
+
 {%endblock  %}
