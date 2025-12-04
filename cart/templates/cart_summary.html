@@ -7,7 +7,7 @@
 <header class="bg-dark py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">Your shopping cart</h1>
+            <h1 class="display-4 fw-bolder">shopping cart</h1>
             <p class="lead fw-normal text-white-50 mb-0">Everything you want to buy is here</p>
         </div>
     </div>
@@ -32,7 +32,20 @@
                     {%else%}
                         <p class="card-text">💵 Price : {{product.price | intcomma}}</p>
                     {%endif%}
-                    <br><br><br><br>
+                    <select class="form-select" id="select{{product.id}}">
+                        {% for key,value in quantities.items %}
+                            {% if key == product.id|stringformat:"s" %}
+                                <option value="{{ value }}" selected>{{ value }}</option>
+                            {% endif %}
+                        {% endfor %}
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+
+                    
+                    <br>
+                    <button type = 'button' data-index = {{product.id}} class= 'btn btn-primary update-cart'>Edit</button>
                     <a href = "{%url 'helloworld'%}" class = 'btn btn-secondary'>back to Home</a>
                 </div>
             </div>
@@ -43,4 +56,30 @@
     <center><h3 class = 'container'>Your shopping cart is empty 😕</h3></center>
 {%endif%}
 <br><br><br><br><br>
+
+<script>
+    $(document).on('click', '.update-cart', function(e){
+        e.preventDefault();
+        var productid = $(this).data('index');
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'cart_update' %}",
+            data: {
+                product_id: productid,
+                product_qty: $('#select'+productid+' option:selected').val(),
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                action: 'post'
+            },
+            success: function(json){
+                console.log("Updated:", json);
+                location.reload(); 
+            },
+            error: function(xhr, errmsg, err){
+                console.log("Error:", errmsg);
+            }
+        });
+    });
+</script>
+
+
 {%endblock  %}
