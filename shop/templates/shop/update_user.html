@@ -1,0 +1,31 @@
+{%extends 'shop/base.html'%}
+{% block content %}
+
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Edit profile</h1>
+                <p class="lead fw-normal text-white-50 mb-0">enter new info</p>
+            </div>
+        </div>
+    </header>
+
+
+    <div class = 'row'>
+        <center>
+            <div class = col-7>
+                <p align = 'justify'>
+                    <form method = "POST" action = "{% url 'update_user' %}">
+                        {% csrf_token %} <!-- for security-->
+                            {{user_form.as_p}}
+                            <br><br>
+                            {{ user_form.errors }}
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    </form>
+                </p>
+            </div>
+        </center>
+    </div>
+
+{%endblock  %}

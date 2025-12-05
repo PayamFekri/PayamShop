@@ -2,8 +2,10 @@ from django.shortcuts import render , redirect , get_object_or_404
 from .models import Product , Category
 from django.contrib.auth import authenticate , login , logout
 from django.contrib import messages
-from . forms import SignUpForm
+from . forms import SignUpForm , UpdateUserForm
 from django.views.decorators.csrf import csrf_protect  # اضافه کنید
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
 
 @csrf_protect
 def helloworld(request):
@@ -32,6 +34,23 @@ def logout_user(request):
     logout(request)
     messages.success(request , ("You have successfully logged out."))
     return redirect("helloworld")
+
+def update_user(request):
+    if request.user.is_authenticated:
+        current_user = User.objects.get(id=request.user.id)
+        user_form = UpdateUserForm(request.POST or None, instance=current_user)
+
+        if user_form.is_valid():
+            user_form.save()
+            login(request, current_user)
+            messages.success(request, 'Your profile has been updated.')
+            return redirect('helloworld')
+
+        return render(request, 'shop/update_user.html', {'user_form': user_form})
+    else:
+        messages.error(request, 'First of all you have to Login!')
+        return redirect('login')
+
 
 def signup_user(request):
     if request.method == "POST":
