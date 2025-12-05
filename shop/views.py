@@ -7,6 +7,8 @@ from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.db.models import Q
+import json , ast
+from cart.cart import Cart
 
 @csrf_protect
 def helloworld(request):
@@ -18,18 +20,46 @@ def about(request):
 
 def login_user(request):
     if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request , username=username , password = password)
-        if user is not None : 
-            login(request , user)
-            messages.success(request , "Logged in successfully.")
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+
+            # گرفتن پروفایل کاربر
+            try:
+                current_user = Profile.objects.get(user=request.user)
+            except Profile.DoesNotExist:
+                current_user = None
+
+            # اگر پروفایل و سبد قدیمی وجود داشت
+            if current_user and current_user.old_cart:
+                saved_cart = current_user.old_cart
+                try:
+                    # تلاش برای خواندن JSON معتبر
+                    converted_cart = json.loads(saved_cart)
+                except json.JSONDecodeError:
+                    # اگر داده قدیمی بود (str(dict))، با ast تبدیل کن
+                    converted_cart = ast.literal_eval(saved_cart)
+                    # و دوباره درست ذخیره کن
+                    current_user.old_cart = json.dumps(converted_cart)
+                    current_user.save()
+
+                # اضافه کردن محصولات به سبد session
+                cart = Cart(request)
+                for key, value in converted_cart.items():
+                    cart.db_add(product=key, quantity=value)
+
+            messages.success(request, "Logged in successfully.")
             return redirect("helloworld")
         else:
-            messages.success(request , "Logged in UNsuccessfully!")
+            messages.error(request, "Invalid username or password.")
             return redirect("login")
-    else :
-        return render(request , 'shop/login.html')
+
+    # اگر متد POST نبود
+    return render(request, 'shop/login.html')
+
 
 def logout_user(request):
     logout(request)

@@ -14,8 +14,11 @@ class Profile(models.Model):
     state = models.CharField(max_length=40,blank= True)
     zipcode = models.CharField(max_length=40,blank= True)
     country = models.CharField(max_length=40,default= 'Iran')
+    old_cart = models.CharField(max_length=200 , blank=True ,null=True)
+    
     def __str__(self):
         return self.user.username
+    
 def create_profile(sender , instance , created , **kwargs):
     if created:
         user_profile = Profile(user = instance)
