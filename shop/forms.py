@@ -2,7 +2,49 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm , UserChangeForm ,SetPasswordForm
 from django import forms
 from django.core.exceptions import ValidationError
-
+from.models import Profile
+class UpdateUserInfo(forms.ModelForm):
+    phone = forms.CharField(
+        label= "",
+        required=False,
+        widget= forms.TextInput(attrs={'class' : 'form-control' , 'placeholder' : 'phone number'})
+    )
+    address1 = forms.CharField(
+        label= "",
+        required=False,
+        widget= forms.TextInput(attrs={'class' : 'form-control' , 'placeholder' : 'first addres'})
+    )
+    address2 = forms.CharField(
+        label= "",
+        required=False,
+        widget= forms.TextInput(attrs={'class' : 'form-control' , 'placeholder' : 'second address'})
+    )
+    city = forms.CharField(
+        label= "",
+        required=False,
+        widget= forms.TextInput(attrs={'class' : 'form-control' , 'placeholder' : 'city'})
+    )
+    state = forms.CharField(
+        label= "",
+        required=False,
+        widget= forms.TextInput(attrs={'class' : 'form-control' , 'placeholder' : 'state'})
+    )
+    zipcode = forms.CharField(
+        label= "",
+        required=False,
+        widget= forms.TextInput(attrs={'class' : 'form-control' , 'placeholder' : 'zip-code'})
+    )
+    country = forms.CharField(
+        label= "",
+        required=False,
+        widget= forms.TextInput(attrs={'class' : 'form-control' , 'placeholder' : 'country'})
+    )
+    
+    
+    class Meta:
+        model = Profile
+        fields = ('phone' , 'address1' , 'address2' ,
+                  'city' , 'state' , 'zipcode' , 'country')
 
 class UpdateUserForm(UserChangeForm):
     password = None

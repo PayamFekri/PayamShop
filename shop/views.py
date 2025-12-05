@@ -1,9 +1,9 @@
 from django.shortcuts import render , redirect , get_object_or_404
-from .models import Product , Category
+from .models import Product , Category ,Profile
 from django.contrib.auth import authenticate , login , logout
 from django.contrib import messages
-from . forms import SignUpForm , UpdateUserForm ,UpdatePasswordForm
-from django.views.decorators.csrf import csrf_protect  # اضافه کنید
+from . forms import SignUpForm , UpdateUserForm ,UpdatePasswordForm , UpdateUserInfo
+from django.views.decorators.csrf import csrf_protect 
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 
@@ -73,6 +73,21 @@ def update_password(request):
         return redirect('helloworld')
     return render(request , 'shop/update_password.html' , {})
 
+def update_info(request):
+    if request.user.is_authenticated:
+        current_user, created = Profile.objects.get_or_create(user=request.user)
+        form = UpdateUserInfo(request.POST or None, instance=current_user)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your profile info has been updated.')
+            return redirect('helloworld')
+
+        return render(request, 'shop/update_info.html', {'form': form})
+    else:
+        messages.error(request, 'You must login first!')
+        return redirect('login')
+
 def signup_user(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
@@ -84,7 +99,7 @@ def signup_user(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, "Sign up is successfully.")
-                return redirect("helloworld")
+                return redirect("update_info")
             else:
                 messages.error(request, "Authentication failed after signup.")
                 return redirect("signup")
