@@ -6,6 +6,7 @@ from . forms import SignUpForm , UpdateUserForm ,UpdatePasswordForm , UpdateUser
 from django.views.decorators.csrf import csrf_protect 
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 @csrf_protect
 def helloworld(request):
@@ -130,3 +131,14 @@ def category(request , cat):
 def category_summary(request):
     all_cat = Category.objects.all()
     return render(request , 'shop/category_summary.html' , {'category':all_cat})
+
+def search(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        searched = Product.objects.filter(Q(name__icontains = searched)| Q(description__icontains = searched))
+        if not searched:
+            messages.success(request , 'There is no such product')
+            return render(request , 'shop/search.html' , {})
+        else:
+            return render(request , 'shop/search.html' , {'searched' : searched})
+    return render(request , 'shop/search.html' , {})

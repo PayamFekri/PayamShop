@@ -1,0 +1,130 @@
+{%extends 'shop/base.html'%}
+{% load static %}
+{% load humanize %}
+
+
+{% block content %}
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">search product</h1>
+                <p class="lead fw-normal text-white-50 mb-0"> ... </p>
+            </div>
+        </div>
+    </header>
+
+    <div class = 'row'>
+        <center>
+            <div class = col-7>
+                <form action = "{% url 'search' %}" method = "POST">
+                    {% csrf_token %}
+                    <div class="card">
+                        <div class="card-header">
+                            search
+                        </div>
+
+                        <div class="card-body">
+                            <input type = "text" class= "form-control" placeholder = 'enter your product name ' name = 'searched'>
+                        </div>
+
+                        <button type ="submit" class = "btn btn-primary">search</button>
+                        <br>
+                    </div>
+                </form>
+
+                <br><br>
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    {%if searched%}
+                        {%for item in searched%}
+                            {% if item.is_sale%}
+                                <div class="col mb-5">
+                                    <div class="card h-100">
+                                        <!-- Sale badge-->
+                                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Special discount</div>
+                                        <!-- Product image-->
+                                        <img class="card-img-top" src="{{item.picture.url}}" alt="..." />
+                                        <!-- Product details-->
+                                        <div class="card-body p-4">
+                                            <div class="text-center">
+                                                <!-- Product name-->
+                                                <div class="d-flex justify-content-center small text-warning mb-2">
+                                                    {% with ''|ljust:item.star as stars %}
+                                                        {% for _ in stars %}
+                                                            <div class="bi-star-fill"></div>
+                                                        {% endfor %}
+                                                    {% endwith %}
+                                                </div>
+
+                                                <h5 class="fw-bolder">{{ item.name }}</h5>
+                                                <!-- Product price-->
+                                                category : {{item.category}}
+                                                <strike>{{item.price | intcomma}}</strike> 
+                                                {{item.sale_price | intcomma}} toman 
+                                            </div>
+                                        </div>
+                                        <!-- Product actions-->
+                                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                            <div class="text-center">
+                                                <a class="btn btn-outline-dark mt-auto" href="{% url 'product' item.id %}">
+                                                    {% if item.is_available %}
+                                                        <span class="text-success">Product details</span>
+                                                    {% else %}
+                                                        <span class="text-danger">Non-existent</span>
+                                                    {% endif %}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                {% else %}
+                                <div class="col mb-5">
+                                    <div class="card h-100">
+                                        <!-- Product image-->
+                                        <img class="card-img-top" src="{{item.picture.url}}" alt="..." />
+                                        <!-- Product details-->
+                                        <div class="card-body p-4">
+                                            <div class="text-center">
+                                                <!-- Product name-->
+                                                <div class="d-flex justify-content-center small text-warning mb-2">
+                                                    {% with ''|ljust:item.star as stars %}
+                                                        {% for _ in stars %}
+                                                            <div class="bi-star-fill"></div>
+                                                        {% endfor %}
+                                                    {% endwith %}
+                                                </div>
+
+                                                <h5 class="fw-bolder">{{ item.name }}</h5>
+                                                <!-- Product price-->
+                                                category : {{item.category}}
+                                                {{item.price | intcomma}} toman
+                                                
+                                            </div>
+                                        </div>
+                                        <!-- Product actions-->
+                                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                            <div class="text-center">
+                                                <a class="btn btn-outline-dark mt-auto" href="{% url 'product' item.id%}">
+                                                    {% if item.is_available %}
+                                                        <span class="text-success">Product details</span>
+                                                    {% else %}
+                                                        <span class="text-danger">Non-existent</span>
+                                                    {% endif %}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            {% endif %}
+                        {%endfor%}
+                    {%endif%}
+                </div>
+            </div>
+        </center>
+    </div>
+<br><br><br><br>
+<br><br>
+{%endblock  %}
