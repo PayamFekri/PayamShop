@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm , UserChangeForm
+from django.contrib.auth.forms import UserCreationForm , UserChangeForm ,SetPasswordForm
 from django import forms
 from django.core.exceptions import ValidationError
 
@@ -117,3 +117,38 @@ class SignUpForm(UserCreationForm):
         if User.objects.filter(username=username).exists():
             raise ValidationError("This username is already taken.")
         return username
+    
+    
+
+class UpdatePasswordForm(SetPasswordForm):
+    new_password1 = forms.CharField(
+        label="",
+        required=True,
+        widget= forms.PasswordInput(
+            attrs={
+                'class' : 'form-control',
+                'name' : 'password',
+                'type' : 'password', 
+                'placeholder' : 'Enter more than 8 characters*'
+                
+            }
+        )
+    )
+    
+    
+    new_password2 = forms.CharField(
+        label="",
+        required=True,
+        widget= forms.PasswordInput(
+            attrs={
+                'class' : 'form-control',
+                'name' : 'password',
+                'type' : 'password', 
+                'placeholder' : 'Enter your password again*'
+                
+            }
+        )
+    )
+    class Meta:
+        model = User
+        field = ['new_password1' ,'new_password2']

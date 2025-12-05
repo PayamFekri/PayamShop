@@ -2,7 +2,7 @@ from django.shortcuts import render , redirect , get_object_or_404
 from .models import Product , Category
 from django.contrib.auth import authenticate , login , logout
 from django.contrib import messages
-from . forms import SignUpForm , UpdateUserForm
+from . forms import SignUpForm , UpdateUserForm ,UpdatePasswordForm
 from django.views.decorators.csrf import csrf_protect  # اضافه کنید
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
@@ -51,6 +51,27 @@ def update_user(request):
         messages.error(request, 'First of all you have to Login!')
         return redirect('login')
 
+def update_password(request):
+    if request.user.is_authenticated:
+        current_user = request.user
+        if request.method == 'POST':
+            form = UpdatePasswordForm(current_user , request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request , 'edited password successfuly.')
+                login(request , current_user)
+                return redirect ('update_user')
+            else:
+                for error in list(form.errors.values()):
+                    messages.success(request , error)
+                    return redirect('update_password')
+        else:
+            form = UpdatePasswordForm(current_user)
+            return render(request , 'shop/update_password.html' , {'form':form})
+    else:
+        messages.success(request , 'first of all, you have to login')
+        return redirect('helloworld')
+    return render(request , 'shop/update_password.html' , {})
 
 def signup_user(request):
     if request.method == "POST":
