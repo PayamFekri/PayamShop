@@ -1,0 +1,76 @@
+{%extends 'shop/base.html'%}
+{% block content %}
+
+<br><br>
+    <div class = 'row'>
+        <center>
+            <div class = col-7>
+
+                {% if other %}
+                    <h3>
+                        current orders
+                    </h3>
+
+                    <table class="table">
+                        <thead class = 'table-dark'>
+                            <tr>
+                            <th scope="col">order number</th>
+                            <th scope="col">name</th>
+                            <th scope="col">order date</th>
+                            <th scope="col">status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in other %}
+                                <tr>
+                                <th scope="row">{{order.id}}</th>
+                                <td>{{order.full_name}}</td>
+                                <td>{{order.date_ordered}}</td>
+                                <td>{{order.get_status_display}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {%else%}
+                    Order is not in progress
+                {% endif %}
+
+
+
+                <br>
+                <hr>
+                <br>
+
+                {% if other %}
+                    <h3>
+                        delivered orders
+                    </h3>
+
+                    <table class="table">
+                        <thead class = 'table-success'>
+                            <tr>
+                            <th scope="col">order number</th>
+                            <th scope="col">name</th>
+                            <th scope="col">Delivery date</th>
+                            <th scope="col">status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in delivered %}
+                                <tr>
+                                <th scope="row">{{order.id}}</th>
+                                <td>{{order.full_name}}</td>
+                                <td>{{order.last_update}}</td>
+                                <td>{{order.get_status_display}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {%else%}
+                    <p>Customization is not available !</p>
+                {% endif %}
+            </div>
+        </center>
+    </div>
+
+{%endblock  %}
