@@ -56,6 +56,8 @@
                             Shipping details
                         </div>
                         <div class="card-body">
+                            <form method = "POST" action = "{% url 'process_order' %}">
+                                {% csrf_token %}
                             full name : {{shipping_info.shipping_full_name}} <br>
                             E-mail: {{shipping_info.shipping_email}} <br>
                             Address 1 : {{shipping_info.shipping_address1}} <br>
@@ -68,14 +70,18 @@
                     </div>
                     
                 </div>
+
                 <br>
-                <a href = "#" class ='btn btn-sm btn-outline-secondary'>Order and payment</a>
+                <button typr = 'submit' class ='btn btn-sm btn-outline-secondary'>
+                    Order and payment
+                </button>
+
                 <br> <br>
                 <a href = "{% url 'checkout'%}" class = 'btn btn-sm btn-outline-secondary'>
                     back
                 </a>
 
-
+            </form>
             </center>
         </div>
     </div>
