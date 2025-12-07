@@ -1,3 +1,3 @@
-Django==6.0
+Django>=4.2,<5
 django_jalali==7.4.0
 jdatetime==5.2.0
