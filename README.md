@@ -21,7 +21,17 @@ This is a simple online shop built with Django, demonstrating a full shopping fl
 - 📸 پشتیبانی از آپلود تصاویر / Image upload support  
 - 🌐 پشتیبانی از فایل‌های استاتیک / Static files (CSS/JS/images)  
 - 🗄️ پایگاه داده SQLite پیش‌فرض / Default SQLite backend  
-
+---
+## Project Structure
+PayamShop/
+├── shop/             # اپ فروشگاه
+├── cart/             # سبد خرید
+├── payment/          # پرداخت
+├── media/            # تصاویر آپلود شده
+├── static/           # CSS / JS / assets
+├── manage.py  
+├── requirements.txt  
+└── db.sqlite3        # SQLite پیش‌فرض
 ---
 
 ## 🛠 تکنولوژی‌ها / Tech Stack
