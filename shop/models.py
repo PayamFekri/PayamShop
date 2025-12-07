@@ -66,8 +66,8 @@ class Order(models.Model):
     product = models.ForeignKey(Product , on_delete=models.CASCADE)
     customer = models.ForeignKey(Customer , on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
-    address = models.CharField(default='' , blank= True)
-    phone = models.CharField(max_length=20 , blank= True)
+    address = models.CharField(max_length=20, default='' , blank= True)
+    phone = models.CharField(max_length=500 , blank= True)
     date = models.DateField(default=timezone.now)
     status = models.BooleanField(default=False)
     
