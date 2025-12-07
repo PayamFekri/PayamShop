@@ -24,14 +24,6 @@ This is a simple online shop built with Django, demonstrating a full shopping fl
 
 ---
 
-## 🖼 Img
-
-| صفحه اصلی / Home Page | جزئیات محصول / Product Detail |
-|------------------------|-------------------------------|
-| ![Home](PayamShop/home.png) | ![Product](screenshots/product_detail.png) |
-
----
-
 ## 🛠 تکنولوژی‌ها / Tech Stack
 
 - Backend: Python 3.x, Django 4.x  
@@ -52,6 +44,10 @@ python3 -m venv venv
 source venv/bin/activate   # ویندوز: venv\Scripts\activate
 
 pip install -r requirements.txt
+
 python manage.py migrate
-python manage.py createsuperuser  # اگر می‌خواید ادمین داشته باشید
+
+python manage.py createsuperuser 
+# اگر می‌خواید ادمین داشته باشید
+
 python manage.py runserver
