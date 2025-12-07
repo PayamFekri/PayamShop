@@ -6,8 +6,8 @@
     <header class="bg-dark py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">Your bill</h1>
-                <p class="lead fw-normal text-white-50 mb-0">Everything you want to buy is here</p>
+                <h1 class="display-4 fw-bolder">Final order confirmation</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Make sure</p>
             </div>
         </div>
     </header>
@@ -48,9 +48,7 @@
                             <strong>
                                 total price : {{total | intcomma}}
                             </strong>
-                            <a href = "{% url 'cart_summary'%}" class = 'btn btn-sm btn-outline-secondary'>
-                                back
-                            </a>
+                            
                         </div>
                     </div>
                     <div class="card">
@@ -58,26 +56,29 @@
                             Shipping details
                         </div>
                         <div class="card-body">
-                            <form action = "{% url 'confirm'%}" method = 'POST'>
-                                {% csrf_token %}
-                                <br>
-                                {{shipping_form.as_p}}
+                            full name : {{shipping_info.shipping_full_name}} <br>
+                            E-mail: {{shipping_info.shipping_email}} <br>
+                            Address 1 : {{shipping_info.shipping_address1}} <br>
+                            Address 2 : {{shipping_info.shipping_address2}} <br>
+                            city : {{shipping_info.shipping_city}} <br>
+                            state : {{shipping_info.shipping_state}} <br>
+                            zip-code: {{shipping_info.shipping_zipcode}} <br>
+                            country: {{shipping_info.shipping_country}} <br>
                         </div>
                     </div>
                     
                 </div>
                 <br>
+                <a href = "#" class ='btn btn-sm btn-outline-secondary'>Order and payment</a>
+                <br> <br>
+                <a href = "{% url 'checkout'%}" class = 'btn btn-sm btn-outline-secondary'>
+                    back
+                </a>
 
-                <button type = 'submit' class ='btn btn-sm btn-outline-secondary'>
-                    Continue
-                </button>
 
-                </form>
             </center>
         </div>
     </div>
 
-
 <br><br><br><br><br>
-
 {%endblock  %}
