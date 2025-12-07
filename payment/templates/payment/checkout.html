@@ -44,6 +44,10 @@
                                 <hr>
 
                             {% endfor %}
+
+                            <strong>
+                                total price : {{total | intcomma}}
+                            </strong>
                             <a href = "{% url 'cart_summary'%}" class = 'btn btn-sm btn-outline-secondary'>
                                 edit order
                             </a>
