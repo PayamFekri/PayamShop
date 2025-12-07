@@ -3,7 +3,7 @@ from cart.cart import Cart
 from .forms import ShippingForm
 from .models import ShippingAddress  , Order,OrderItem
 from django.contrib import messages
-from shop.models import Product
+from shop.models import Product , Profile
 from django.contrib.auth.models import User
 
 def payment_success(request):
@@ -76,7 +76,7 @@ def process_order(request):
             for product in cart_products:
                 prod = get_object_or_404(Product , id = product.id)
                 if product.is_sale:
-                    proce = product.sale_price
+                    price = product.sale_price
                 else:
                     price = product.price
 
@@ -94,6 +94,8 @@ def process_order(request):
             for key in list(request.session.keys()):
                 if key == 'session_key':
                     del request.session[key]
+            cu = Profile.objects.filter(user__id = request.user.id)
+            cu.update(old_cart = "")
                     
             messages.success(request,'The order was placed')
             return redirect('helloworld')
