@@ -49,8 +49,9 @@ PayamShop/ ├── shop/ # Main shop application │ ├── migrations/ # D
 `bash
 
 git clone https://github.com/PayamFekri/PayamShop.git
+
 cd PayamShop
 
-# how to run
+### how to run
 
 python manage.py runserver
