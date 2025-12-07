@@ -5,9 +5,10 @@
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow)
 
 PayamShop یک فروشگاه آنلاین ساده با Django است که روند کامل خرید آنلاین را نمایش می‌دهد — از لیست محصولات تا سبد خرید، تسویه و پرداخت.  
+
 This is a simple online shop built with Django, demonstrating a full shopping flow — from product listing to cart, checkout, and payment.
 
-🌐 Demo: [Live Demo Link](#)  
+🌐 Demo: [Live Demo Link](https://payamfekri.pythonanywhere.com/hi/)  
 
 ---
 
@@ -23,11 +24,11 @@ This is a simple online shop built with Django, demonstrating a full shopping fl
 
 ---
 
-## 🖼 Screenshots
+## 🖼 Img
 
 | صفحه اصلی / Home Page | جزئیات محصول / Product Detail |
 |------------------------|-------------------------------|
-| ![Home](screenshots/home.png) | ![Product](screenshots/product_detail.png) |
+| ![Home](PayamShop\home.png) | ![Product](screenshots/product_detail.png) |
 
 ---
 
