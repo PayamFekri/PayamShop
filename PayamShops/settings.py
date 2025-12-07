@@ -3,6 +3,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
@@ -12,7 +13,7 @@ SECRET_KEY = 'django-insecure-#85!u_!3qc7neknv$p_ia%w&%pg8qzao2$$u4ez3lkjp_w)aas
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS =  ['payamfekri.pythonanywhere.com']
+ALLOWED_HOSTS =  ['payamfekri.pythonanywhere.com' , '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -45,7 +46,7 @@ ROOT_URLCONF = 'PayamShops.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"],
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,7 +69,7 @@ WSGI_APPLICATION = 'PayamShops.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
