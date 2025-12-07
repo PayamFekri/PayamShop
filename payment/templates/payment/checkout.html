@@ -1,0 +1,66 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% load humanize %}
+{%block content%}
+
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Your bill</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Everything you want to buy is here</p>
+            </div>
+        </div>
+    </header>
+    <br>
+    <div class = 'container'>
+        <div class = 'row'>
+            <center>
+                <div class = col-7>
+                    <div class="card">
+                        <div class="card-header">
+                            Order Summary
+                        </div>
+                        <div class="card-body">
+                            {% for product in cart_products%}
+                                {{product.name}}<br>
+
+                                <small>
+                                    price:
+                                    {% if product.is_sale%}
+                                        {{product.sale_price | intcomma}}
+                                    {%else%}
+                                        {{product.price | intcomma}}
+                                    {%endif%}
+                                </small>
+                                <br>
+                                <small>
+                                    counts:
+                                    {% for key,value in quantities.items %}
+                                        {% if key == product.id|stringformat:"s" %}
+                                            {{ value }}
+                                        {% endif %}
+                                {% endfor %}
+                                </small><br>
+                                <hr>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            Shipping details
+                        </div>
+                        <div class="card-body">
+                            {{shipping_form.as_p}}
+                        </div>
+                    </div>
+                    
+                </div>
+            </center>
+        </div>
+    </div>
+
+
+<br><br><br><br><br>
+
+{%endblock  %}

@@ -53,6 +53,8 @@
     </div>
     {% endfor %}
     <h2>total price : {{total | intcomma}} toman </h2>
+    <br>
+<a href = "{% url 'checkout'%}" class = 'btn btn-success'>bill</a>
 {%else%}
     <center><h3 class = 'container'>Your shopping cart is empty 😕</h3></center>
 {%endif%}
