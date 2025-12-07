@@ -37,9 +37,12 @@ class Order(models.Model):
     
 class OrderItem(models.Model):
     order = models.ForeignKey(Order , on_delete=models.CASCADE , null= True)
-    products = models.ForeignKey(Product , on_delete=models.CASCADE , null= True)
+    product = models.ForeignKey(Product , on_delete=models.CASCADE , null= True)
     user = models.ForeignKey(User , on_delete=models.CASCADE , null= True)
     quantity = models.PositiveIntegerField(default=1)
     price = models.DecimalField(decimal_places=2 , max_digits=15)
     def __str__(self):
-        return f'Order Item {str(self.id)}'
+        if self.user is not None:
+            return f'Order Item {str(self.id)} - for {self.user}'
+        else:
+            return f'Order Item {str(self.id)}'

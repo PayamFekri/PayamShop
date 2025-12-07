@@ -1,8 +1,10 @@
-from django.shortcuts import render ,redirect
+from django.shortcuts import render ,redirect , get_object_or_404
 from cart.cart import Cart
 from .forms import ShippingForm
-from .models import ShippingAddress  , Order
+from .models import ShippingAddress  , Order,OrderItem
 from django.contrib import messages
+from shop.models import Product
+from django.contrib.auth.models import User
 
 def payment_success(request):
     return render(request , 'payment/payment_success.html' , {})
@@ -69,8 +71,34 @@ def process_order(request):
                 amount_paid = total
             )
             new_order.save()
+            
+            odr = get_object_or_404(Order , id = new_order.pk)
+            for product in cart_products:
+                prod = get_object_or_404(Product , id = product.id)
+                if product.is_sale:
+                    proce = product.sale_price
+                else:
+                    price = product.price
+
+                for k,v in quantities.items():
+                    if int(k) == product.id:
+                        new_item = OrderItem(
+                            order = odr,
+                            product = prod, 
+                            price = price,
+                            quantity = v,
+                            user = user
+                        )
+                        new_item.save()
+                        
+            for key in list(request.session.keys()):
+                if key == 'session_key':
+                    del request.session[key]
+                    
             messages.success(request,'The order was placed')
             return redirect('helloworld')
+        
+        
         else:
             new_order = Order(
                 full_name = full_name,
@@ -79,6 +107,27 @@ def process_order(request):
                 amount_paid = total
             )
             new_order.save()
+            
+            odr = get_object_or_404(Order , id = new_order.pk)
+            for product in cart_products:
+                prod = get_object_or_404(Product , id = product.id)
+                if product.is_sale:
+                    price = product.sale_price
+                else:
+                    price = product.price
+                    
+                for k,v in quantities.items():
+                    if int(k) == product.id:
+                        new_item = OrderItem(
+                            order = odr,
+                            product = prod, 
+                            price = price,
+                            quantity = v,
+                        )
+                        new_item.save()
+            for key in list(request.session.keys()):
+                if key == 'session_key':
+                    del request.session[key]
             messages.success(request,'The order was placed')
             return redirect('helloworld')
     else:
