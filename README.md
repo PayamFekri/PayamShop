@@ -23,15 +23,17 @@ This is a simple online shop built with Django, demonstrating a full shopping fl
 - 🗄️ پایگاه داده SQLite پیش‌فرض / Default SQLite backend  
 ---
 ## Project Structure
+
 PayamShop/
-├── shop/             # اپ فروشگاه
-├── cart/             # سبد خرید
-├── payment/          # پرداخت
-├── media/            # تصاویر آپلود شده
-├── static/           # CSS / JS / assets
-├── manage.py  
-├── requirements.txt  
-└── db.sqlite3        # SQLite پیش‌فرض
+PayamShop/
+├── shop/             # Shop app: product listing, detail, cart, checkout
+├── cart/             # Shopping cart functionality
+├── payment/          # Payment processing module/app
+├── media/            # Uploaded product images
+├── static/           # CSS / JS / frontend assets
+├── manage.py         # Django management script
+├── requirements.txt  # Python dependencies
+└── db.sqlite3        # Default SQLite database (development)
 ---
 
 ## 🛠 تکنولوژی‌ها / Tech Stack
