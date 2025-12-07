@@ -23,9 +23,14 @@
                         <tbody>
                             {% for order in other %}
                                 <tr>
-                                <th scope="row">{{order.id}}</th>
+                                <th scope="row">
+                                    <a  href ="{%url 'order_details' order.id%}">
+                                        Order number 
+                                        {{order.id}}
+                                    </a>
+                                </th>
                                 <td>{{order.full_name}}</td>
-                                <td>{{order.date_ordered}}</td>
+                                <td>{{order.date_ordered | date:"Y-m-d H:i:s"}}</td>
                                 <td>{{order.get_status_display}}</td>
                                 </tr>
                             {% endfor %}
@@ -58,9 +63,14 @@
                         <tbody>
                             {% for order in delivered %}
                                 <tr>
-                                <th scope="row">{{order.id}}</th>
+                                <th scope="row">
+                                    <a  href ="{%url 'order_details' order.id%}">
+                                        Order number 
+                                        {{order.id}}
+                                    </a>
+                                </th>
                                 <td>{{order.full_name}}</td>
-                                <td>{{order.last_update}}</td>
+                                <td>{{order.last_update | date:"Y-m-d H:i:s"}}</td>
                                 <td>{{order.get_status_display}}</td>
                                 </tr>
                             {% endfor %}

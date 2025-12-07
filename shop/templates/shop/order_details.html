@@ -1,0 +1,38 @@
+{%extends 'shop/base.html'%}
+{% block content %}
+{% load humanize %}
+<br><br>
+    <div class = 'row'>
+        <center>
+            <div class = col-7>
+                <h3>order details</h3>
+                
+                <div class="card">
+                    <div class="card-header">
+                        order {{order.id}} , {{order.amount_paid | intcomma}} toman
+                    </div>
+                    <div class="card-body">
+                        
+                        name : {{order.full_name}}<br>
+                        E-mail : {{order.email}}<br>
+                        address : {{order.shipping_address}}<br>
+                        date order : {{order.date_ordered | date:"Y-m-d H:i:s"}}<br>
+                        last update : {{order.last_update | date:"Y-m-d H:i:s"}}<br>
+                        status : {{order.get_status_display}}<br>
+
+                        <hr>
+                        Genders <br>
+                        {%for item in items%}
+                            {{item.product}} | counts : {{item.quantity}} | price : {{item.price}} <br>
+                        {%endfor%}
+                    </div>
+                </div>
+                <br>
+                <a href="{%url 'orders'%}" class="btn btn-primary">back to orders</a>
+                <br>
+                <br>
+            </div>
+        </center>
+    </div>
+
+{%endblock  %}
