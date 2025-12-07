@@ -9,6 +9,10 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 import json , ast
 from cart.cart import Cart
+from payment.forms import ShippingForm
+from payment.models import ShippingAddress
+
+
 
 @csrf_protect
 def helloworld(request):
@@ -70,7 +74,7 @@ def update_user(request):
     if request.user.is_authenticated:
         current_user = User.objects.get(id=request.user.id)
         user_form = UpdateUserForm(request.POST or None, instance=current_user)
-
+        
         if user_form.is_valid():
             user_form.save()
             login(request, current_user)
@@ -107,14 +111,21 @@ def update_password(request):
 def update_info(request):
     if request.user.is_authenticated:
         current_user, created = Profile.objects.get_or_create(user=request.user)
-        form = UpdateUserInfo(request.POST or None, instance=current_user)
+        shipping_user, created = ShippingAddress.objects.get_or_create(user=request.user)
 
-        if form.is_valid():
+        form = UpdateUserInfo(request.POST or None, instance=current_user)
+        shipping_form = ShippingForm(request.POST or None, instance=shipping_user)
+
+        if form.is_valid() or shipping_form.is_valid():
             form.save()
+            shipping_form.save()
             messages.success(request, 'Your profile info has been updated.')
             return redirect('helloworld')
 
-        return render(request, 'shop/update_info.html', {'form': form})
+        return render(request, 'shop/update_info.html', {
+            'form': form,
+            'shipping_form': shipping_form
+        })
     else:
         messages.error(request, 'You must login first!')
         return redirect('login')
