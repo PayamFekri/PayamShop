@@ -22,27 +22,6 @@ This is a simple online shop built with Django, demonstrating a full shopping fl
 - 🌐 پشتیبانی از فایل‌های استاتیک / Static files (CSS/JS/images)  
 - 🗄️ پایگاه داده SQLite پیش‌فرض / Default SQLite backend  
 ---
-## Project Structure
-
-PayamShop/
-    PayamShop/
-
-    ├── shop/              Shop app: product listing, detail, cart, checkout
-
-    ├── cart/             # Shopping cart functionality
-    
-    ├── payment/          # Payment processing module/app
-    
-    ├── media/            # Uploaded product images
-    
-    ├── static/           # CSS / JS / frontend assets
-    
-    ├── manage.py         # Django management script
-    
-    ├── requirements.txt  # Python dependencies
-    
-    └── db.sqlite3        # Default SQLite database (development)
----
 ## 📂 Project Structure 
 Here is the overall structure of the **PayamShop** project with a brief explanation of each folder and file: 
 
@@ -54,7 +33,7 @@ PayamShop/ ├── shop/ # Main shop application │ ├── migrations/ # D
 
 ├── media/ # Uploaded product images (user-generated content) ├── static/ # Global static files (CSS, JS, images shared across the project) ├── manage.py # Django management script (runserver, migrations, etc.) ├── requirements.txt # Python dependencies required for the project └── db.sqlite3 # SQLite database (default, for development/testing)
 
-### ✅ Notes: - The **shop/** app is the core of the project, handling product display, detail views, and checkout flowcart/*cart/** app handles the shopping cart logic separately for modularity. - The **payment/** app is responsible for processing payments, currently implemented as a simple placeholder for learning/demo media/- **media/** is where product images uploaded by users arstatic/ **static/** contains global frontend assets shared across thedb.sqlite3db.sqlite3** is for development only; in production, a more robust database should be used (e.g., PostgreSQL). --- This structure is modular, making it easy to extend each component independently — for example, adding user accounts, order history, or integrating real payment gateways in the future. 
+##### ✅ Notes: - The **shop/** app is the core of the project, handling product display, detail views, and checkout flowcart/*cart/** app handles the shopping cart logic separately for modularity. - The **payment/** app is responsible for processing payments, currently implemented as a simple placeholder for learning/demo media/- **media/** is where product images uploaded by users arstatic/ **static/** contains global frontend assets shared across thedb.sqlite3db.sqlite3** is for development only; in production, a more robust database should be used (e.g., PostgreSQL). --- This structure is modular, making it easy to extend each component independently — for example, adding user accounts, order history, or integrating real payment gateways in the future. 
 ---
 ## 🛠 تکنولوژی‌ها / Tech Stack
 
