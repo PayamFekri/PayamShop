@@ -36,6 +36,7 @@ This is a simple online shop built with Django, demonstrating a full shopping fl
 ## 📦 نصب و راه‌اندازی / Installation
 
 `bash
+
 git clone https://github.com/PayamFekri/PayamShop.git
 cd PayamShop
 
