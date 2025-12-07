@@ -25,15 +25,23 @@ This is a simple online shop built with Django, demonstrating a full shopping fl
 ## Project Structure
 
 PayamShop/
-PayamShop/
-├── shop/              Shop app: product listing, detail, cart, checkout
-├── cart/             # Shopping cart functionality
-├── payment/          # Payment processing module/app
-├── media/            # Uploaded product images
-├── static/           # CSS / JS / frontend assets
-├── manage.py         # Django management script
-├── requirements.txt  # Python dependencies
-└── db.sqlite3        # Default SQLite database (development)
+    PayamShop/
+
+    ├── shop/              Shop app: product listing, detail, cart, checkout
+
+    ├── cart/             # Shopping cart functionality
+    
+    ├── payment/          # Payment processing module/app
+    
+    ├── media/            # Uploaded product images
+    
+    ├── static/           # CSS / JS / frontend assets
+    
+    ├── manage.py         # Django management script
+    
+    ├── requirements.txt  # Python dependencies
+    
+    └── db.sqlite3        # Default SQLite database (development)
 ---
 
 ## 🛠 تکنولوژی‌ها / Tech Stack
