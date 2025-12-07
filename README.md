@@ -28,7 +28,7 @@ This is a simple online shop built with Django, demonstrating a full shopping fl
 
 | صفحه اصلی / Home Page | جزئیات محصول / Product Detail |
 |------------------------|-------------------------------|
-| ![Home](PayamShop\home.png) | ![Product](screenshots/product_detail.png) |
+| ![Home](PayamShop/home.png) | ![Product](screenshots/product_detail.png) |
 
 ---
 
