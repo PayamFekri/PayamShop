@@ -26,7 +26,7 @@ This is a simple online shop built with Django, demonstrating a full shopping fl
 
 PayamShop/
 PayamShop/
-├── shop/             # Shop app: product listing, detail, cart, checkout
+├── shop/              Shop app: product listing, detail, cart, checkout
 ├── cart/             # Shopping cart functionality
 ├── payment/          # Payment processing module/app
 ├── media/            # Uploaded product images
